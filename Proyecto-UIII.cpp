@@ -33,6 +33,7 @@ Usuario A[1000];
 Producto C[1000];
 int n = 0;
 int p = 0;
+int ActualU = 0;
 
 
 
@@ -62,23 +63,26 @@ int main(){
         switch (op)
         {
         case 1:
-        Registrar(A);
+            Registrar(A);
             break;
 
         case 2:
-        AgregarProductos(C);
+            AgregarProductos(C);
             break;
 
         case 3:
-        PagCompras(A, C);
+            PagCompras(A, C);
             break;
 
         case 0:
-            cout<<"Ejecucion Terminada"<<endl;
+            cout<<endl;
+            cout<<" Ejecucion Terminada"<<endl;
             break;      
         
         default:
-            cout<<"Ingrese un numero correcto"<<endl; //No se ve por el cls de la linea 46*
+            cout<<endl;
+            cout<<" Ingrese un numero correcto"<<endl;
+            system("pause");
             break;
         }
     } while (op != 0);
@@ -86,15 +90,16 @@ int main(){
 
 void Registrar(Usuario A[]){                    //Registra usuario y crea un archivo.
     system("cls");
-    cout<<"Ingrese su edad: "; cin>>A[n].edad;
+    cout<<"Ingrese su edad:       "; cin>>A[n].edad;
     if (A[n].edad>=18)
     {
-        cout<<"Ingrese su Nommbre:      "; fflush(stdin); getline(cin, A[n].Nombre);
-        cout<<"Ingrese su DNI:          "; cin>>A[n].Dni;
-        cout<<"Ingrese su Pais:         "; fflush(stdin); getline(cin, A[n].Pais);
-        cout<<"Ingrese su Direccion:    "; fflush(stdin); getline(cin, A[n].Direccion);
-        cout<<"Ingrese su telefono:     "; cin>>A[n].telefono;
-        cout<<"Ingrese su sexo:         ", cin>>A[n].sexo;
+        cout<<"****Ingrese sus datos****"<<endl;
+        cout<<"Nombre:       "; fflush(stdin); getline(cin, A[n].Nombre);
+        cout<<"Sexo:         ", cin>>A[n].sexo;
+        cout<<"DNI           "; cin>>A[n].Dni;
+        cout<<"Pais          "; fflush(stdin); getline(cin, A[n].Pais);
+        cout<<"Direccion     "; fflush(stdin); getline(cin, A[n].Direccion);
+        cout<<"Telefono      "; cin>>A[n].telefono;
         n++;
         
         ofstream archivo;
@@ -119,7 +124,7 @@ void Registrar(Usuario A[]){                    //Registra usuario y crea un arc
     
     else
     {
-        cout<<"Debe ser mayor de edad para poder registrarse"<<endl;
+        cout<<" Debe ser mayor de edad para poder registrarse"<<endl;
         system("pause");
     }
 }
@@ -129,23 +134,24 @@ void Registrar(Usuario A[]){                    //Registra usuario y crea un arc
 void AgregarProductos(Producto C[]){        //Agrega productos y crea un archivo.
     system("cls");
     cout<<" \n "<<endl;
-    cout<<"________Agregar Producto al Inventario________"<<endl;
+    cout<<"=========Agregar Producto al Inventario========="<<endl;
     cout<<" \n "<<endl;
     cout<<" Agregue el producto             : "; fflush(stdin); getline(cin, C[p].Producto);
     cout<<" Tipo(ropa/electronico/libros)   : "; fflush(stdin); getline(cin, C[p].Tipo);
     cout<<" Ingrese el precio             :S/."; cin>>C[p].Precio;
     cout<<" Ingrese la marca                : "; fflush(stdin); getline(cin, C[p].Marca);
+    
     p++;        
 
     ofstream archivop;
     archivop.open("Productos.txt");
     archivop<<"Productos: "<<endl;
     archivop<<"======================"<<endl;
-    for(int p=0; p<n ;p++){
-    archivop<<" Producto				: "<<C[p].Producto<<endl;
-    archivop<<" Tipo de Producto		: "<<C[p].Tipo<<endl;
-    archivop<<" Precio del Producto	    : "<<C[p].Precio<<endl;
-    archivop<<" Marca del Producto	    : "<<C[p].Marca<<endl;
+    for(int i = 0; i <= p ;i++){
+    archivop<<" Producto				: "<<C[i].Producto<<endl;
+    archivop<<" Tipo de Producto		: "<<C[i].Tipo<<endl;
+    archivop<<" Precio del Producto	    : "<<C[i].Precio<<endl;
+    archivop<<" Marca del Producto	    : "<<C[i].Marca<<endl;
     archivop<<"================================"<<endl;
     archivop<<" \n "<<endl;
     }
@@ -157,10 +163,17 @@ void AgregarProductos(Producto C[]){        //Agrega productos y crea un archivo
 
 
 void PagCompras(Usuario A[], Producto C[]){
-    if (n!=0)
+    
+if (n!=0)
+{
+   system("cls");
+   for (int i = 0; i <= n; i++)
     {
-    system("cls");
-    cout<<"Bienvenido "<<A[n].Nombre<<endl;
+        if (i==n-1)
+        {
+            cout<<" Bienvenido "<<A[i].Nombre<<endl;
+        }
+    }
     cout<<endl;
     cout<<" Lista de Productos:"<<endl;
     cout<<endl;
@@ -174,14 +187,20 @@ void PagCompras(Usuario A[], Producto C[]){
         cout<<" Marca del Producto       : "<<C[i].Marca<<endl;
  
     }
+    //FALTA 
+    //Mostrar si se desea comprar otro producto mas
+    //luego ver la lista de productos comprados (cls) y precio total
+    //y quizas mostrar la boleta en un archivo txt
+
     system("pause");
 
     }
 
     else
     {
-        cout<<"Primero registrese"<<endl;
+        cout<<" Primero registrese"<<endl;
         system("pause");
-    }  
+    }
+
 }
 
