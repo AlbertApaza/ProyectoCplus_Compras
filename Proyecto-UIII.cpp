@@ -21,19 +21,32 @@ struct Producto
     string Tipo;
     int Precio;
     string Marca;
+    int Codigo;
 };
 
-struct Compras
+struct Compra
 {
-    int CodigodelProducto;
+    string ProductoComprado;
+    string TipoComprado;
+    int PrecioComprado;
+    string MarcaComprado;
+    int CodigoComprado;
 };
 
 
 Usuario A[1000];
 Producto C[1000];
+Compra B[1000];
 int n = 0;
 int p = 0;
-int ActualU = 0;
+int h = 0;
+int i = 0;
+char eleccion;
+int CodigoProducto=0;
+string AuxProducto, AuxTipo, AuxMarca;
+int AuxPrecio, AuxCodigo;
+int AuxCompra = 0;
+int AuxCompraIGV = 0;
 
 
 
@@ -93,18 +106,18 @@ void Registrar(Usuario A[]){                    //Registra usuario y crea un arc
     cout<<"Ingrese su edad:       "; cin>>A[n].edad;
     if (A[n].edad>=18)
     {
+        cout<<endl;
         cout<<"****Ingrese sus datos****"<<endl;
         cout<<"Nombre:       "; fflush(stdin); getline(cin, A[n].Nombre);
         cout<<"Sexo:         ", cin>>A[n].sexo;
-        cout<<"DNI           "; cin>>A[n].Dni;
-        cout<<"Pais          "; fflush(stdin); getline(cin, A[n].Pais);
-        cout<<"Direccion     "; fflush(stdin); getline(cin, A[n].Direccion);
-        cout<<"Telefono      "; cin>>A[n].telefono;
+        cout<<"DNI:          "; cin>>A[n].Dni;
+        cout<<"Pais:         "; fflush(stdin); getline(cin, A[n].Pais);
+        cout<<"Direccion:    "; fflush(stdin); getline(cin, A[n].Direccion);
+        cout<<"Telefono:     "; cin>>A[n].telefono;
         n++;
         
         ofstream archivo;
         archivo.open("Clientes.txt");
-        archivo<<" \n "<<endl;
         archivo<<"Clientes: "<<endl;
         archivo<<"======================"<<endl;
         for(int i=0; i<n ;i++){
@@ -138,22 +151,22 @@ void AgregarProductos(Producto C[]){        //Agrega productos y crea un archivo
     cout<<" \n "<<endl;
     cout<<" Agregue el producto             : "; fflush(stdin); getline(cin, C[p].Producto);
     cout<<" Tipo(ropa/electronico/libros)   : "; fflush(stdin); getline(cin, C[p].Tipo);
-    cout<<" Ingrese el precio             :S/."; cin>>C[p].Precio;
+    cout<<" Ingrese el precio               : S/."; cin>>C[p].Precio;
     cout<<" Ingrese la marca                : "; fflush(stdin); getline(cin, C[p].Marca);
-    
+    cout<<" Ingrese el codigo del Producto  : "; cin>>C[p].Codigo;
     p++;        
 
     ofstream archivop;
     archivop.open("Productos.txt");
     archivop<<"Productos: "<<endl;
-    archivop<<"======================"<<endl;
-    for(int i = 0; i <= p ;i++){
+    archivop<<"================================"<<endl;
+    for(int i = 0; i < p ;i++){
+    archivop<<" Codigo del Producto    : "<<C[i].Codigo<<endl;
     archivop<<" Producto				: "<<C[i].Producto<<endl;
     archivop<<" Tipo de Producto		: "<<C[i].Tipo<<endl;
-    archivop<<" Precio del Producto	    : "<<C[i].Precio<<endl;
+    archivop<<" Precio del Producto	: S/."<<C[i].Precio<<endl;
     archivop<<" Marca del Producto	    : "<<C[i].Marca<<endl;
     archivop<<"================================"<<endl;
-    archivop<<" \n "<<endl;
     }
     archivop.close();
 
@@ -180,20 +193,62 @@ if (n!=0)
     for (int i = 0; i < p; i++)
     {
         cout<<"===================================="<<endl;
-        cout<<" Codigo de Producto       : "<<i<<endl;
+        cout<<" Codigo de Producto       : "<<C[i].Codigo<<endl;
         cout<<" Producto                 : "<<C[i].Producto<<endl;
         cout<<" Tipo de Producto         : "<<C[i].Tipo<<endl;
         cout<<" Precio del Producto      : "<<C[i].Precio<<endl;
         cout<<" Marca del Producto       : "<<C[i].Marca<<endl;
- 
     }
+    cout<<endl;
+
     //FALTA 
     //Mostrar si se desea comprar otro producto mas
     //luego ver la lista de productos comprados (cls) y precio total
     //y quizas mostrar la boleta en un archivo txt
 
-    system("pause");
+    do
+    {
+        cout<<"Ingrese el codigo del producto que desea comprar: "; cin>>CodigoProducto;
+        for (int i = 0; i < p; i++)
+        {
+            if (CodigoProducto==C[i].Codigo)
+            {
+                AuxProducto=C[i].Producto;
+                AuxTipo=C[i].Tipo;
+                AuxPrecio=C[i].Precio;
+                AuxMarca=C[i].Marca;
+                h++;
+            }
+        }
 
+        //i++
+        B[i].ProductoComprado=AuxProducto;
+        B[i].TipoComprado=AuxTipo;
+        B[i].PrecioComprado=AuxPrecio;
+        B[i].MarcaComprado=AuxMarca;
+        i++;
+
+        cout<<"Desea comprar otro producto? (S/N): "; cin>>eleccion;
+    } while (eleccion!='N' and eleccion!='n');
+
+    system("cls");
+    cout<<" Productos Comprados----------------"<<endl;
+    if (h>0)
+    {
+        for (int i = 0; i < h; i++){
+        cout<<"===================================="<<endl;
+        cout<<" Producto                 : "<<B[i].ProductoComprado<<endl;
+        cout<<" Tipo de Producto         : "<<B[i].TipoComprado<<endl;
+        cout<<" Precio del Producto      : "<<B[i].PrecioComprado<<endl;
+        cout<<" Marca del Producto       : "<<B[i].MarcaComprado<<endl;
+        AuxCompra = AuxCompra + B[i].PrecioComprado;
+        }
+    }
+    AuxCompraIGV = float(AuxCompra*1.18);
+    cout<<"===================================="<<endl;
+    cout<<"Total a Pagar (IGV incluido):    S/."<<AuxCompraIGV<<endl;
+    cout<<endl;
+    system("pause");
     }
 
     else
@@ -201,6 +256,4 @@ if (n!=0)
         cout<<" Primero registrese"<<endl;
         system("pause");
     }
-
 }
-
