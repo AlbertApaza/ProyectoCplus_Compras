@@ -53,6 +53,7 @@ int AuxCompraIGV = 0;
 void Registrar(Usuario A[]);
 void AgregarProductos(Producto C[]);
 void PagCompras(Usuario A[], Producto C[]);
+void VerRecibo(Usuario A[], Compra B[]);
 
 
 
@@ -68,6 +69,7 @@ int main(){
         cout<<"   1. Registrarse                                                       "<<endl;
         cout<<"   2. Agregar productos                                                 "<<endl;
         cout<<"   3. Pagina de Compras                                                 "<<endl;
+        cout<<"   4. Procesar su Recibo                                                "<<endl;
         cout<<"   0. Salir                                                             "<<endl;
         cout<<" ***********************************************************************"<<endl;
         cout<<endl;
@@ -85,6 +87,10 @@ int main(){
 
         case 3:
             PagCompras(A, C);
+            break;
+        
+        case 4:
+            VerRecibo(A, B);
             break;
 
         case 0:
@@ -132,7 +138,6 @@ void Registrar(Usuario A[]){                    //Registra usuario y crea un arc
         archivo<<" \n "<<endl;
         }
         archivo.close();
-
     }
     
     else
@@ -176,7 +181,6 @@ void AgregarProductos(Producto C[]){        //Agrega productos y crea un archivo
 
 
 void PagCompras(Usuario A[], Producto C[]){
-    
 if (n!=0)
 {
    system("cls");
@@ -200,11 +204,6 @@ if (n!=0)
         cout<<" Marca del Producto       : "<<C[i].Marca<<endl;
     }
     cout<<endl;
-
-    //FALTA 
-    //Mostrar si se desea comprar otro producto mas
-    //luego ver la lista de productos comprados (cls) y precio total
-    //y quizas mostrar la boleta en un archivo txt
 
     do
     {
@@ -256,4 +255,42 @@ if (n!=0)
         cout<<" Primero registrese"<<endl;
         system("pause");
     }
+}
+
+
+void VerRecibo(Usuario A[], Compra B[]){
+if (h>0)
+{
+    ofstream archivoR;
+    archivoR.open("Recibo.txt");
+
+    archivoR<<" ========== CLIENTE ============="<<endl;
+    for (int i = 0; i < n; i++)
+    {
+        if (i==n-1)
+        {
+        archivoR<<" Nombre:       "<<A[i].Nombre<<endl;
+        archivoR<<" Pais:         "<<A[i].Pais<<endl;
+        archivoR<<" Direccion:    "<<A[i].Direccion<<endl;
+        archivoR<<" Telefono:     "<<A[i].telefono<<endl;
+        }
+    }
+     archivoR<<endl;
+    archivoR<<" ================================"<<endl;
+    archivoR<<"       PRODUCTOS COMPRADOS      "<<endl;
+    archivoR<<" ================================"<<endl;
+    for(int i = 0; i < h ;i++){
+    archivoR<<" Producto                 : "<<B[i].ProductoComprado<<endl;
+    archivoR<<" Tipo de Producto         : "<<B[i].TipoComprado<<endl;
+    archivoR<<" Precio del Producto      : "<<B[i].PrecioComprado<<endl;
+    archivoR<<" Marca del Producto       : "<<B[i].MarcaComprado<<endl;
+    archivoR<<" ================================"<<endl;
+    }
+    archivoR.close();
+}
+else
+{
+    cout<<" Primero debe de realizar una compra"<<endl;
+    system("pause");
+}
 }

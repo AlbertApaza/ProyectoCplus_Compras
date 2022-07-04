@@ -1,20 +1,8 @@
 Productos: 
 ================================
- Codigo del Producto    : 2
- Producto				: S20FE
+ Codigo del Producto    : 9
+ Producto				: S20fe
  Tipo de Producto		: electronico
  Precio del Producto	: S/.1200
  Marca del Producto	    : Samsung
-================================
- Codigo del Producto    : 4
- Producto				: Crepusculo
- Tipo de Producto		: libros
- Precio del Producto	: S/.150
- Marca del Producto	    : EditorialSanMarcos
-================================
- Codigo del Producto    : 7
- Producto				: NikeCortez
- Tipo de Producto		: ropa
- Precio del Producto	: S/.120
- Marca del Producto	    : Nike
 ================================
