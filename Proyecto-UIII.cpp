@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include <fstream>
 #include <string>
 using namespace std;
@@ -13,6 +14,7 @@ struct Usuario
     int telefono;
     string sexo;
     int edad;
+    int demora = 0;
 };
 
 struct Producto
@@ -47,6 +49,8 @@ string AuxProducto, AuxTipo, AuxMarca;
 int AuxPrecio, AuxCodigo;
 int AuxCompra = 0;
 int AuxCompraIGV = 0;
+
+char PaisOriginario;
 
 
 
@@ -115,11 +119,49 @@ void Registrar(Usuario A[]){                    //Registra usuario y crea un arc
         cout<<endl;
         cout<<"****Ingrese sus datos****"<<endl;
         cout<<"Nombre:       "; fflush(stdin); getline(cin, A[n].Nombre);
-        cout<<"Sexo:         ", cin>>A[n].sexo;
+        cout<<"Paises Disponibles: "<<endl;
+        cout<<"     Peru        = P"<<endl;
+        cout<<"     Colombia    = C"<<endl;
+        cout<<"     Ecuador     = E"<<endl;
+        cout<<"     Bolivia     = B"<<endl;
+        cout<<"     Argentina   = A"<<endl;
+        cout<<endl;
+        cout<<"Ingrese su Pais:    "; cin>>PaisOriginario;
+        switch (PaisOriginario)
+        {
+        case 'P':
+            A[n].Pais="Peru";
+            A[n].demora=6;
+            break;
+        
+        case 'C':
+            A[n].Pais="Colombia";
+            A[n].demora=10;
+            break;
+        
+        case 'E':
+            A[n].Pais="Ecuador";
+            A[n].demora=9;
+            break;
+
+        case 'B':
+            A[n].Pais="Bolivia";
+            A[n].demora=11;
+            break;
+
+        case 'A':
+            A[n].Pais="Argentina";
+            A[n].demora=15;
+            break;
+
+        default:
+            cout<<"Aun no contamos con envios a su Pais"<<endl;
+            break;
+        }
         cout<<"DNI:          "; cin>>A[n].Dni;
-        cout<<"Pais:         "; fflush(stdin); getline(cin, A[n].Pais);
         cout<<"Direccion:    "; fflush(stdin); getline(cin, A[n].Direccion);
         cout<<"Telefono:     "; cin>>A[n].telefono;
+        cout<<"Sexo:         ", cin>>A[n].sexo;
         n++;
         
         ofstream archivo;
@@ -246,6 +288,13 @@ if (n!=0)
     AuxCompraIGV = float(AuxCompra*1.18);
     cout<<"===================================="<<endl;
     cout<<"Total a Pagar (IGV incluido):    S/."<<AuxCompraIGV<<endl;
+    for (int i = 0; i <= n; i++)
+        {
+            if (i==n-1)
+            {
+                cout<<"Tiempo estimado de demora: "<<A[i].demora<<" dias"<<endl;
+            }
+        }
     cout<<endl;
     system("pause");
     }
@@ -275,7 +324,7 @@ if (h>0)
         archivoR<<" Telefono:     "<<A[i].telefono<<endl;
         }
     }
-     archivoR<<endl;
+    archivoR<<endl;
     archivoR<<" ================================"<<endl;
     archivoR<<"       PRODUCTOS COMPRADOS      "<<endl;
     archivoR<<" ================================"<<endl;
@@ -285,6 +334,15 @@ if (h>0)
     archivoR<<" Precio del Producto      : "<<B[i].PrecioComprado<<endl;
     archivoR<<" Marca del Producto       : "<<B[i].MarcaComprado<<endl;
     archivoR<<" ================================"<<endl;
+    }
+    archivoR<<endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (i==n-1)
+        {
+            archivoR<<"Tiempo estimado de demora: "<<A[i].demora<<" dias"<<endl;
+        }
     }
     archivoR.close();
 }

@@ -1,8 +1,0 @@
-Productos: 
-================================
- Codigo del Producto    : 9
- Producto				: S20fe
- Tipo de Producto		: electronico
- Precio del Producto	: S/.1200
- Marca del Producto	    : Samsung
-================================
