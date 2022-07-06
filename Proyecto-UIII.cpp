@@ -53,6 +53,13 @@ int AuxCompraIGV = 0;
 char PaisOriginario;
 
 
+//ADMIN
+string AdminNombre;
+int AdminContra;
+
+//USUARIO
+char op2;
+
 
 void Registrar(Usuario A[]);
 void AgregarProductos(Producto C[]);
@@ -69,11 +76,8 @@ int main(){
     {
         system("cls");
         cout<<" ****************************** MENU ***********************************"<<endl;
-        cout<<"   Que desea hacer?                                                     "<<endl;
-        cout<<"   1. Registrarse                                                       "<<endl;
-        cout<<"   2. Agregar productos                                                 "<<endl;
-        cout<<"   3. Pagina de Compras                                                 "<<endl;
-        cout<<"   4. Procesar su Recibo                                                "<<endl;
+        cout<<"   1. ADMIN                                                             "<<endl;
+        cout<<"   2. USUARIO                                                           "<<endl;
         cout<<"   0. Salir                                                             "<<endl;
         cout<<" ***********************************************************************"<<endl;
         cout<<endl;
@@ -82,19 +86,69 @@ int main(){
         switch (op)
         {
         case 1:
-            Registrar(A);
-            break;
+            system("cls");
+            cout<<"----------------- Registrese -----------------"<<endl;
+            cout<<"Ingrese el Usuario:     "; cin>>AdminNombre;
+            cout<<"Ingrese la Contrasena:  "; cin>>AdminContra;
+            if (AdminNombre=="ADMIN")
+            {
+                if (AdminContra==123456)
+                {   
+                    cout<<endl;
+                    cout<<"Usuario y Contrasena correctos"<<endl;
+                    cout<<endl;
+                    system("pause");
 
-        case 2:
-            AgregarProductos(C);
-            break;
-
-        case 3:
-            PagCompras(A, C);
+                    AgregarProductos(C);  //Agrega productos y crea un archivo.
+                }
+            }
+            else
+            {
+                cout<<endl;
+                cout<<"Ingrese datos correctos"<<endl;
+                system("pause");
+            }
             break;
         
-        case 4:
-            VerRecibo(A, B);
+        case 2:
+            do
+            {
+                system("cls");
+                cout<<" ****************************** MENU ***********************************"<<endl;
+                cout<<"   A. Registrarse                                                       "<<endl;
+                cout<<"   B. Pagina de Compras                                                 "<<endl;
+                cout<<"   C. Procesar Recibo                                                   "<<endl;
+                cout<<"   Z. Retoceder                                                         "<<endl;
+                cout<<" ***********************************************************************"<<endl;
+                cout<<endl;
+                cout<<" Ingrese la opcion: "; cin>>op2;
+                switch (op2)
+                {
+                case 'A':
+                    Registrar(A);
+                    break;
+
+                case 'B':
+                    PagCompras(A, C);
+                    break;
+
+                case 'C':
+                    VerRecibo(A, B);
+                    break;
+                
+                case 'Z':
+                    cout<<endl;
+                    cout<<" Retrocediendo..."<<endl;
+                    system("pause");
+                    break;
+                
+                default:
+                    cout<<endl;
+                    cout<<" Ingrese una opcion correcta"<<endl;
+                    system("pause");
+                    break;
+                }
+            } while (op2!='Z');
             break;
 
         case 0:
@@ -190,36 +244,32 @@ void Registrar(Usuario A[]){                    //Registra usuario y crea un arc
 }
 
 
-
 void AgregarProductos(Producto C[]){        //Agrega productos y crea un archivo.
-    system("cls");
-    cout<<" \n "<<endl;
-    cout<<"=========Agregar Producto al Inventario========="<<endl;
-    cout<<" \n "<<endl;
-    cout<<" Agregue el producto             : "; fflush(stdin); getline(cin, C[p].Producto);
-    cout<<" Tipo(ropa/electronico/libros)   : "; fflush(stdin); getline(cin, C[p].Tipo);
-    cout<<" Ingrese el precio               : S/."; cin>>C[p].Precio;
-    cout<<" Ingrese la marca                : "; fflush(stdin); getline(cin, C[p].Marca);
-    cout<<" Ingrese el codigo del Producto  : "; cin>>C[p].Codigo;
-    p++;        
+        system("cls");
+        cout<<endl;
+        cout<<"======== Agregar Producto al Inventario ========"<<endl;
+        cout<<endl;
+        cout<<" Agregue el producto             : "; fflush(stdin); getline(cin, C[p].Producto);
+        cout<<" Tipo(ropa/electronico/libros)   : "; fflush(stdin); getline(cin, C[p].Tipo);
+        cout<<" Ingrese el precio               : S/."; cin>>C[p].Precio;
+        cout<<" Ingrese la marca                : "; fflush(stdin); getline(cin, C[p].Marca);
+        cout<<" Ingrese el codigo del Producto  : "; cin>>C[p].Codigo;
+        p++;        
 
-    ofstream archivop;
-    archivop.open("Productos.txt");
-    archivop<<"Productos: "<<endl;
-    archivop<<"================================"<<endl;
-    for(int i = 0; i < p ;i++){
-    archivop<<" Codigo del Producto    : "<<C[i].Codigo<<endl;
-    archivop<<" Producto				: "<<C[i].Producto<<endl;
-    archivop<<" Tipo de Producto		: "<<C[i].Tipo<<endl;
-    archivop<<" Precio del Producto	: S/."<<C[i].Precio<<endl;
-    archivop<<" Marca del Producto	    : "<<C[i].Marca<<endl;
-    archivop<<"================================"<<endl;
+        ofstream archivop;
+        archivop.open("Productos.txt");
+        archivop<<"Productos: "<<endl;
+        archivop<<"================================"<<endl;
+        for(int i = 0; i < p ;i++){
+        archivop<<" Codigo del Producto    : "<<C[i].Codigo<<endl;
+        archivop<<" Producto				: "<<C[i].Producto<<endl;
+        archivop<<" Tipo de Producto		: "<<C[i].Tipo<<endl;
+        archivop<<" Precio del Producto	: S/."<<C[i].Precio<<endl;
+        archivop<<" Marca del Producto	    : "<<C[i].Marca<<endl;
+        archivop<<"================================"<<endl;
     }
     archivop.close();
-
-    }
-
-
+}
 
 
 void PagCompras(Usuario A[], Producto C[]){
@@ -335,6 +385,8 @@ if (h>0)
     archivoR<<" Marca del Producto       : "<<B[i].MarcaComprado<<endl;
     archivoR<<" ================================"<<endl;
     }
+    archivoR<<endl;
+    archivoR<<"Total a Pagar (IGV incluido):    S/."<<AuxCompraIGV<<endl;
     archivoR<<endl;
 
     for (int i = 0; i < n; i++)
