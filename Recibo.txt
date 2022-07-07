@@ -1,23 +1,23 @@
  ========== CLIENTE =============
  Nombre:       Albert
- Pais:         Peru
- Direccion:    avOlivos
- Telefono:     994085214
+ Pais:         Argentina
+ Direccion:    aav.Oivos
+ Telefono:     994086213
 
  ================================
        PRODUCTOS COMPRADOS      
  ================================
- Producto                 : Principito
- Tipo de Producto         : libros
- Precio del Producto      : 20
- Marca del Producto       : SanMarcos
+ Producto                 : TELEVISOR
+ Tipo de Producto         : ELECTRONICO
+ Precio del Producto      : 1500
+ Marca del Producto       : Samsung
  ================================
- Producto                 : gorro
+ Producto                 : Gorro
  Tipo de Producto         : ropa
- Precio del Producto      : 50
- Marca del Producto       : gucci
+ Precio del Producto      : 21
+ Marca del Producto       : Adidas
  ================================
 
-Total a Pagar (IGV incluido):    S/.82
+Total a Pagar (IGV incluido):    S/.1794
 
-Tiempo estimado de demora: 6 dias
+Tiempo estimado de demora: 15 dias

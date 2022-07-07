@@ -357,12 +357,12 @@ if (n!=0)
         cout<<"Ingrese el codigo del producto que desea comprar: "; cin>>CodigoProducto;
         for (int i = 0; i < p; i++)
         {
-            if (CodigoProducto==C[i].Codigo)
+            if (CodigoProducto==C[i+1].Codigo)
             {
-                AuxProducto=C[i].Producto;
-                AuxTipo=C[i].Tipo;
-                AuxPrecio=C[i].Precio;
-                AuxMarca=C[i].Marca;
+                AuxProducto=C[i+1].Producto;
+                AuxTipo=C[i+1].Tipo;
+                AuxPrecio=C[i+1].Precio;
+                AuxMarca=C[i+1].Marca;
                 h++;
             }
         }
@@ -430,7 +430,7 @@ void BuscarProducto(Producto C[]){
         pos = i;
     }
     cout<<"El producto que busca es el numero "<<pos<<" en nuestro catalogo"<<endl;
-    for (int i = 0; i < p; i++)
+    for (int i = 1; i <= p; i++)
     {
         if (pos==i)
         {
