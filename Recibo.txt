@@ -1,0 +1,23 @@
+ ========== CLIENTE =============
+ Nombre:       Albert
+ Pais:         Peru
+ Direccion:    avOlivos
+ Telefono:     994085214
+
+ ================================
+       PRODUCTOS COMPRADOS      
+ ================================
+ Producto                 : Principito
+ Tipo de Producto         : libros
+ Precio del Producto      : 20
+ Marca del Producto       : SanMarcos
+ ================================
+ Producto                 : gorro
+ Tipo de Producto         : ropa
+ Precio del Producto      : 50
+ Marca del Producto       : gucci
+ ================================
+
+Total a Pagar (IGV incluido):    S/.82
+
+Tiempo estimado de demora: 6 dias

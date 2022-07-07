@@ -51,7 +51,14 @@ int AuxCompra = 0;
 int AuxCompraIGV = 0;
 
 char PaisOriginario;
+char op3;
 
+//Ordenar Alfabeticamente Producto
+string AuxProductoAlfa, AuxTipoAlfa, AuxMarcaAlfa;
+int AuxPrecioAlfa, AuxCodigoAlfa;
+
+//BuscarProducto
+int dato;
 
 //ADMIN
 string AdminNombre;
@@ -65,6 +72,7 @@ void Registrar(Usuario A[]);
 void AgregarProductos(Producto C[]);
 void PagCompras(Usuario A[], Producto C[]);
 void VerRecibo(Usuario A[], Compra B[]);
+void BuscarProducto(Producto C[]);
 
 
 
@@ -117,7 +125,8 @@ int main(){
                 cout<<" ****************************** MENU ***********************************"<<endl;
                 cout<<"   A. Registrarse                                                       "<<endl;
                 cout<<"   B. Pagina de Compras                                                 "<<endl;
-                cout<<"   C. Procesar Recibo                                                   "<<endl;
+                cout<<"   C. Buscar Producto                                                   "<<endl;
+                cout<<"   D. Procesar Recibo                                                   "<<endl;
                 cout<<"   Z. Retoceder                                                         "<<endl;
                 cout<<" ***********************************************************************"<<endl;
                 cout<<endl;
@@ -133,6 +142,10 @@ int main(){
                     break;
 
                 case 'C':
+                    BuscarProducto(C);
+                    break;
+
+                case 'D':
                     VerRecibo(A, B);
                     break;
                 
@@ -246,26 +259,66 @@ void Registrar(Usuario A[]){                    //Registra usuario y crea un arc
 
 void AgregarProductos(Producto C[]){        //Agrega productos y crea un archivo.
         system("cls");
-        cout<<endl;
-        cout<<"======== Agregar Producto al Inventario ========"<<endl;
-        cout<<endl;
-        cout<<" Agregue el producto             : "; fflush(stdin); getline(cin, C[p].Producto);
-        cout<<" Tipo(ropa/electronico/libros)   : "; fflush(stdin); getline(cin, C[p].Tipo);
-        cout<<" Ingrese el precio               : S/."; cin>>C[p].Precio;
-        cout<<" Ingrese la marca                : "; fflush(stdin); getline(cin, C[p].Marca);
-        cout<<" Ingrese el codigo del Producto  : "; cin>>C[p].Codigo;
-        p++;        
+        do
+        {
+            system("cls");
+            cout<<"======== Agregar Producto al Inventario ========"<<endl;
+            cout<<endl;
+            cout<<" Agregue el producto             : "; fflush(stdin); getline(cin, C[p].Producto);
+            cout<<" Tipo(ropa/electronico/libros)   : "; fflush(stdin); getline(cin, C[p].Tipo);
+            cout<<" Ingrese el precio               : S/."; cin>>C[p].Precio;
+            cout<<" Ingrese la marca                : "; fflush(stdin); getline(cin, C[p].Marca);
+            cout<<" Ingrese el codigo del Producto  : "; cin>>C[p].Codigo;
+            p++;
+            cout<<endl;
+            cout<<"Desea agregar otro producto? (S/N): "; cin>>op3;
+        } while (op3 == 'S' || op3 == 's');
 
+
+    //Ordenar Alfabeticamente
+	for (int i=0;i<p;i++)
+	{
+		for(int j=0;j<p;j++)
+		{
+			if(C[j].Producto>C[j+1].Producto)
+			{   
+                //Producto
+				AuxProductoAlfa=C[j].Producto;
+				C[j].Producto=C[j+1].Producto;
+				C[j+1].Producto=AuxProductoAlfa;
+
+                //Tipo
+				AuxTipoAlfa=C[j].Tipo;
+				C[j].Tipo=C[j+1].Tipo;
+				C[j+1].Tipo=AuxTipoAlfa;
+
+                //Precio
+				AuxPrecioAlfa=C[j].Precio;
+				C[j].Precio=C[j+1].Precio;
+				C[j+1].Precio=AuxPrecioAlfa;
+
+                //Marca
+				AuxMarcaAlfa=C[j].Marca;
+				C[j].Marca=C[j+1].Marca;
+				C[j+1].Marca=AuxMarcaAlfa;
+
+                //Codigo de Producto
+				AuxCodigoAlfa=C[j].Codigo;
+				C[j].Codigo=C[j+1].Codigo;
+				C[j+1].Codigo=AuxCodigoAlfa;
+			}
+		}
+	}
         ofstream archivop;
         archivop.open("Productos.txt");
         archivop<<"Productos: "<<endl;
         archivop<<"================================"<<endl;
         for(int i = 0; i < p ;i++){
-        archivop<<" Codigo del Producto    : "<<C[i].Codigo<<endl;
-        archivop<<" Producto				: "<<C[i].Producto<<endl;
-        archivop<<" Tipo de Producto		: "<<C[i].Tipo<<endl;
-        archivop<<" Precio del Producto	: S/."<<C[i].Precio<<endl;
-        archivop<<" Marca del Producto	    : "<<C[i].Marca<<endl;
+        archivop<<" Codigo del Producto     : "<<C[i+1].Codigo<<endl;
+        archivop<<" Producto				: "<<C[i+1].Producto<<endl;
+        archivop<<" Tipo de Producto		: "<<C[i+1].Tipo<<endl;
+        archivop<<" Precio del Producto	: S/."<<C[i+1].Precio<<endl;
+        archivop<<" Marca del Producto	    : "<<C[i+1].Marca<<endl;
         archivop<<"================================"<<endl;
     }
     archivop.close();
@@ -289,11 +342,11 @@ if (n!=0)
     for (int i = 0; i < p; i++)
     {
         cout<<"===================================="<<endl;
-        cout<<" Codigo de Producto       : "<<C[i].Codigo<<endl;
-        cout<<" Producto                 : "<<C[i].Producto<<endl;
-        cout<<" Tipo de Producto         : "<<C[i].Tipo<<endl;
-        cout<<" Precio del Producto      : "<<C[i].Precio<<endl;
-        cout<<" Marca del Producto       : "<<C[i].Marca<<endl;
+        cout<<" Codigo de Producto       : "<<C[i+1].Codigo<<endl;
+        cout<<" Producto                 : "<<C[i+1].Producto<<endl;
+        cout<<" Tipo de Producto         : "<<C[i+1].Tipo<<endl;
+        cout<<" Precio del Producto      : "<<C[i+1].Precio<<endl;
+        cout<<" Marca del Producto       : "<<C[i+1].Marca<<endl;
     }
     cout<<endl;
 
@@ -354,6 +407,41 @@ if (n!=0)
         cout<<" Primero registrese"<<endl;
         system("pause");
     }
+}
+
+//Secuencial Desordenado
+void BuscarProducto(Producto C[]){
+    system("cls");
+    int pos, i;
+    cout<<"============= BUSCAR PRODUCTO ============="<<endl;
+    cout<<endl;
+    cout<<"Ingrese el codigo del producto que desea buscar: "; cin>>dato;
+    pos = 0;
+    i = 1;
+    while (i <= p and C[i].Codigo != dato)
+    {
+        i = i + 1;
+    }
+    
+    if (i <= p)
+    {
+        pos = i;
+    }
+    cout<<"El producto que busca es el numero "<<pos<<" en nuestro catalogo"<<endl;
+    for (int i = 0; i < p; i++)
+    {
+        if (pos==i)
+        {
+            cout<<"===================================="<<endl;
+            cout<<" Codigo de Producto       : "<<C[i].Codigo<<endl;
+            cout<<" Producto                 : "<<C[i].Producto<<endl;
+            cout<<" Tipo de Producto         : "<<C[i].Tipo<<endl;
+            cout<<" Precio del Producto      : "<<C[i].Precio<<endl;
+            cout<<" Marca del Producto       : "<<C[i].Marca<<endl;
+        }
+    }
+    cout<<endl;
+    system("pause");
 }
 
 

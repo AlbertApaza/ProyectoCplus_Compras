@@ -1,0 +1,20 @@
+Productos: 
+================================
+ Codigo del Producto     : 5
+ Producto				: Principito
+ Tipo de Producto		: libros
+ Precio del Producto	: S/.20
+ Marca del Producto	    : SanMarcos
+================================
+ Codigo del Producto     : 1
+ Producto				: gorro
+ Tipo de Producto		: ropa
+ Precio del Producto	: S/.50
+ Marca del Producto	    : gucci
+================================
+ Codigo del Producto     : 6
+ Producto				: impresora
+ Tipo de Producto		: electronico
+ Precio del Producto	: S/.240
+ Marca del Producto	    : hp
+================================
